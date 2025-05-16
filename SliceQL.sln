@@ -13,6 +13,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SliceQL.Console", "SliceQL.
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SliceQL.Core", "SliceQL.Core\SliceQL.Core.csproj", "{30DF4694-0E58-461F-A2F3-AAC680DA7CDD}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SliceQL.web", "SliceQL.web\SliceQL.web.csproj", "{9E3784A8-F446-4676-A142-ECDB628A6087}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -35,6 +37,10 @@ Global
 		{30DF4694-0E58-461F-A2F3-AAC680DA7CDD}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{30DF4694-0E58-461F-A2F3-AAC680DA7CDD}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{30DF4694-0E58-461F-A2F3-AAC680DA7CDD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9E3784A8-F446-4676-A142-ECDB628A6087}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9E3784A8-F446-4676-A142-ECDB628A6087}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9E3784A8-F446-4676-A142-ECDB628A6087}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9E3784A8-F446-4676-A142-ECDB628A6087}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

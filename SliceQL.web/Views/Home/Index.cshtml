@@ -1,0 +1,28 @@
+﻿@{
+    ViewData["Title"] = "SliceQL - Interface Web";
+}
+
+<h1>SliceQL - Interface Web</h1>
+
+<form method="post" enctype="multipart/form-data">
+    <div>
+        <label for="dataFile">Fichier .txt :</label>
+        <input type="file" name="dataFile" required />
+    </div>
+    <div>
+        <label for="sqlQuery">Requête SQL :</label><br />
+        <textarea name="sqlQuery" rows="4" cols="60" required></textarea>
+    </div>
+    <button type="submit">Exécuter</button>
+</form>
+
+@if (ViewBag.Error != null)
+{
+    <div style="color:red;">@ViewBag.Error</div>
+}
+
+@if (ViewBag.Result != null)
+{
+    <h2>Contenu du fichier</h2>
+    <pre>@ViewBag.Result</pre>
+}
