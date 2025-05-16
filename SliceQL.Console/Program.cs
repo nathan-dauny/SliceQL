@@ -4,7 +4,7 @@ using SliceQL.Core;
 using static System.Runtime.InteropServices.JavaScript.JSType;
 
 
-//XLQL--data - file "C:\Users\anous\Desktop\Applications dev\XLQL\inputs\tableName.txt" - s "SELECT * FROM tableName;"
+//SliceQL.Console --data-file "C:\Users\anous\Desktop\Applications dev\SLiceQL\inputs\tableName.txt" -s "SELECT * FROM tableName;"
 class Program
 {
     static Task Main(string[] args)

@@ -48,6 +48,16 @@ namespace SliceQL.Core
                 Environment.Exit((int)parsingError.code);
             }
         }
+
+        public CommandLineInterface(StreamReader reader, string sqlQuery, string tableName = "table")
+        {
+            this.data = reader;
+            this.querySql = sqlQuery;
+            this.tableName = tableName;
+        }
+
+
+
         /// <summary>
         /// Store content of the file in "Data" and the sql query in "QuerySql"
         /// <param name="fileInput">The file specified in args.</param>
