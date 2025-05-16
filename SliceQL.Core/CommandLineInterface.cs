@@ -40,8 +40,18 @@ namespace SliceQL.Core
             command.AddOption(fileOptionInput);
             command.AddOption(sqlOptionInput);
 
-            command.SetHandler(HandleCommand, fileOptionInput, sqlOptionInput);
-            command.Invoke(args);
+            //command.SetHandler(HandleCommand, fileOptionInput, sqlOptionInput);
+            //command.Invoke(args);
+
+            // Utilise Parse au lieu d’Invoke
+            var result = command.Parse(args);
+
+            var fileInput = result.GetValueForOption(fileOptionInput);
+            var sqlinput = result.GetValueForOption(sqlOptionInput);
+
+            HandleCommand(fileInput, sqlinput);
+
+
             if (parsingError.error)
             {
                 Console.WriteLine($"Input Error: {parsingError.message} (Code: {parsingError.code})");

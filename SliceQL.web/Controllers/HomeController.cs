@@ -2,6 +2,7 @@ using System.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
 using SliceQL.web.Models;
 using SliceQL.Core;
+using System.Data.SQLite;
 
 namespace SliceQL.web.Controllers
 {
@@ -14,6 +15,37 @@ namespace SliceQL.web.Controllers
             _logger = logger;
         }
 
+        //public IActionResult Index()
+        //{
+        //    string[] args = new string[5];
+        //    args[0] = "SliceQL.Console";
+        //    args[1] = "--data-file";
+        //    args[2] = "C:\\Users\\anous\\Desktop\\Applications dev\\SliceQL\\inputs\\tableName.txt";
+        //    args[3] = "--sql";
+        //    args[4] = "SELECT * FROM tableName;";
+
+        //    IInputInterface input = new CommandLineInterface(args);
+        //    try
+        //    {
+        //        Query query = new Query(args[4]);
+        //        using (Database database = new Database(input.data, input.tableName))
+        //        {
+        //            database.ExecuteSqlQuery(query);
+        //        }
+        //    }
+        //    catch (InvalidSqlQueryException ex)
+        //    {
+        //        Console.WriteLine(ex.Message);
+        //        Console.WriteLine(input.querySql);
+        //        Environment.Exit((int)ParsingError.codeError.InputError);
+        //    }
+        //    catch (SQLiteException ex)
+        //    {
+        //        Console.WriteLine($"SQLite Error: {ex.Message} (Code: {ex.ErrorCode})");
+        //        Environment.Exit((int)ParsingError.codeError.InputError);
+        //    }
+        //    return View();
+        //}
         [HttpGet]
         public IActionResult Index()
         {
@@ -23,23 +55,52 @@ namespace SliceQL.web.Controllers
         [HttpPost]
         public async Task<IActionResult> Index(IFormFile dataFile, string sqlQuery)
         {
-            if (dataFile == null || string.IsNullOrWhiteSpace(sqlQuery))
+            string[] args = new string[5];
+            args[0] = "SliceQL.Console";
+            args[1] = "--data-file";
+            args[2] = "C:\\Users\\anous\\Desktop\\Applications dev\\SliceQL\\inputs\\tableName.txt";
+            args[3] = "--sql";
+            args[4] = "SELECT * FROM tableName;";
+
+            IInputInterface input = new CommandLineInterface(args);
+            try
             {
-                ViewBag.Error = "Fichier ou requête manquant.";
-                return View();
+                Query query = new Query(args[4]);
+                using (Database database = new Database(input.data, input.tableName))
+                {
+                    database.ExecuteSqlQuery(query);
+                }
             }
+            catch (InvalidSqlQueryException ex)
+            {
+                Console.WriteLine(ex.Message);
+                Console.WriteLine(input.querySql);
+                Environment.Exit((int)ParsingError.codeError.InputError);
+            }
+            catch (SQLiteException ex)
+            {
+                Console.WriteLine($"SQLite Error: {ex.Message} (Code: {ex.ErrorCode})");
+                Environment.Exit((int)ParsingError.codeError.InputError);
+            }
+            return View();
 
-            using var reader = new StreamReader(dataFile.OpenReadStream());
+            //if (dataFile == null || string.IsNullOrWhiteSpace(sqlQuery))
+            //{
+            //    ViewBag.Error = "Fichier ou requête manquant.";
+            //    return View();
+            //}
 
-            // OPTION 1 : avec le nouveau constructeur
-            var cli = new CommandLineInterface(reader, sqlQuery, Path.GetFileNameWithoutExtension(dataFile.FileName));
+            //using var reader = new StreamReader(dataFile.OpenReadStream());
 
-            // OU OPTION 2 : avec une méthode
-            // var cli = new CommandLineInterface();
-            // cli.OverrideData(reader, sqlQuery, Path.GetFileNameWithoutExtension(dataFile.FileName));
+            //// OPTION 1 : avec le nouveau constructeur
+            //var cli = new CommandLineInterface(reader, sqlQuery, Path.GetFileNameWithoutExtension(dataFile.FileName));
 
-            var preview = await cli.data.ReadToEndAsync();
-            ViewBag.Result = preview;
+            //// OU OPTION 2 : avec une méthode
+            //// var cli = new CommandLineInterface();
+            //// cli.OverrideData(reader, sqlQuery, Path.GetFileNameWithoutExtension(dataFile.FileName));
+
+            //var preview = await cli.data.ReadToEndAsync();
+            //ViewBag.Result = preview;
 
             return View();
         }
