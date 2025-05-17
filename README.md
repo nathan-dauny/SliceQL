@@ -21,7 +21,7 @@ Built with .NET, it works both as a command-line tool and soon as a web interfac
 - .NET 8 (C#)
 - Modular architecture using .NET Class Libraries
 - ASP.NET Core MVC for the web interface
-- LINQ for query execution
+- SQLite query execution
 
 ---
 
