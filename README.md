@@ -32,6 +32,6 @@ Built with .NET, it works both as a command-line tool and soon as a web interfac
 ```bash
 git clone https://github.com/your-username/sliceql.git
 cd sliceql
-dotnet run --project SliceQL/SliceQL.Console -- --data-file "SLiceQL\inputs\tableName.txt" -s "SELECT * FROM tableName WHERE FamilyName='Jean';"
+dotnet run --project SliceQL/SliceQL.Console -- --data-file "SLiceQL\inputs\tableName.txt" -s "SELECT * FROM tableName;"
 
 
