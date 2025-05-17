@@ -1,6 +1,6 @@
 # 🧩 SliceQL
 
-**SliceQL** is a lightweight SQL engine that lets you run SQL-like queries directly on structured text files (CSV, TSV, etc.).  
+**SliceQL** is a Console App that lets you run SQL-like queries directly on structured text files.  
 Built with .NET, it works both as a command-line tool and soon as a web interface.
 
 > ⚠️ Excel (.xlsx) support coming soon!
@@ -30,7 +30,7 @@ Built with .NET, it works both as a command-line tool and soon as a web interfac
 ### 🔧 Command-Line Usage (Prototype)
 
 ```bash
-git clone https://github.com/your-username/sliceql.git
+git clone https://github.com/nathan-dauny/SliceQL.git
 cd sliceql
 dotnet run --project SliceQL/SliceQL.Console -- --data-file "SLiceQL\inputs\tableName.txt" -s "SELECT * FROM tableName;"
 
