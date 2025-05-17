@@ -60,7 +60,8 @@ namespace SliceQL.web.Controllers
             args[1] = "--data-file";
             args[2] = "C:\\Users\\anous\\Desktop\\Applications dev\\SliceQL\\inputs\\tableName.txt";
             args[3] = "--sql";
-            args[4] = "SELECT * FROM tableName;";
+            args[4] = sqlQuery;
+            //args[4] = "SELECT * FROM tableName WHERE Age='24'";
 
             IInputInterface input = new CommandLineInterface(args);
             try
