@@ -86,7 +86,7 @@ namespace SliceQL.Core
 
             yield return new SQLiteCommand($"DELETE FROM {tableName}");
 
-            foreach (string[] lineArray in csvParsed.dataList)
+            foreach (string[] lineArray in csvParsed.dataList.Skip(1)) // ← ignore la première ligne
             {
                 SQLiteCommand insertCommand = new SQLiteCommand(insertQuery);
                 for (int columnIndex = 0; columnIndex < lineArray.Length; columnIndex++)
@@ -125,7 +125,7 @@ namespace SliceQL.Core
                     valueTitle[j] = sqlReader.GetName(j + 1).ToString();
                 }
                 matrix.Add(valueTitle);
-                sqlReader.Read();
+                //sqlReader.Read();
                 while (sqlReader.Read())
                 {
                     string?[] valueField = new string[sqlReader.FieldCount - 1];
