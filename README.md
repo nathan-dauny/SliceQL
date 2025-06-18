@@ -25,6 +25,13 @@ Built with .NET, it works both as a command-line tool and soon as a web interfac
 
 ---
 
+## 📦 Packages Used
+
+- 🧾 System.CommandLine — Modern API for building command-line apps with argument parsing, tab completion, and more  
+- 🗃️ System.Data.SQLite — ADO.NET provider for SQLite databases  
+
+---
+
 ## ⚙️ Getting Started
 
 ### 🔧 Command-Line Usage (Prototype)
