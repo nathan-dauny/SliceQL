@@ -41,4 +41,5 @@ git clone https://github.com/nathan-dauny/SliceQL.git
 cd sliceql
 dotnet run --project SliceQL/SliceQL.Console -- --data-file "SLiceQL\inputs\tableName.txt" -s "SELECT * FROM tableName;"
 
+TEST: SliceQL.Console --data-file "C:\Users\anous\Desktop\Applications dev\SLiceQL\inputs\tableName.txt" -s "SELECT * FROM tableName WHERE FamilyName='Bertrand';"
 
