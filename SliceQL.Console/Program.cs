@@ -13,7 +13,7 @@ class Program
         try
         {
             Query query = new Query(input.querySql);
-            using (Database database = new Database(input.data, input.tableName))
+            using (DatabaseLIB database = new DatabaseLIB(input.data, input.tableName))
             {
                 database.ExecuteSqlQuery(query);
             }

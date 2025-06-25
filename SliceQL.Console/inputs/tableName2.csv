@@ -1,0 +1,4 @@
+﻿Name,Age,Salary,IsActive,JoinDate
+Alice,30,55000.5,true,2021-01-15
+Bob,25,48000,false,2020-11-30
+Charlie,35,,true,2019-07-01
