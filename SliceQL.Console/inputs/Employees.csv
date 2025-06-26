@@ -1,0 +1,7 @@
+﻿EmployeeId,Name,Age,Salary,IsActive,JoinDate,DepartmentId
+100,Alice,33,55000,true,2021-01-15,1
+101,Bob,25,48000,false,2020-11-30,2
+102,Charlie,35,60000,true,2019-07-01,3
+103,Diana,28,61000,true,2022-03-10,3
+104,Eric,40,72000,false,2018-09-21,1
+105,Fiona,29,58000,true,2021-07-05,4
