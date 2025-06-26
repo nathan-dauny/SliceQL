@@ -5,6 +5,7 @@ using System.Reflection.PortableExecutable;
 using System.Text;
 using CsvToDynamicObjectLib;
 using Matrix = System.Collections.Generic.List<string?[]>;
+using MatrixDYNAMIC = System.Collections.Generic.List<System.Collections.Generic.Dictionary<string, object>>;
 
 namespace SliceQL.Core
 {
@@ -122,46 +123,45 @@ namespace SliceQL.Core
             {
                 using (SQLiteDataReader readerResultQuery = userCommand.ExecuteReader())
                 {
-                    Matrix matrix = MatrixAdapter.ToMatrix(readerResultQuery);
-                    string result = MatrixPrinter.Print(matrix);
-                    Console.WriteLine(result);
+                    MatrixDYNAMIC matrix = MatrixAdapter.ToMatrix(readerResultQuery);
+                    //string result = MatrixPrinter.Print(matrix);
+                    //Console.WriteLine(result);
                 }
             }
         }
 
         public class MatrixAdapter
         {
-            public static Matrix ToMatrix(SQLiteDataReader sqlReader)
+            public static MatrixDYNAMIC ToMatrix(SQLiteDataReader sqlReader)
             {
                 return SqlReaderToMatrixAdapter(sqlReader);
             }
-            static Matrix SqlReaderToMatrixAdapter(SQLiteDataReader sqlReader)
+            static MatrixDYNAMIC SqlReaderToMatrixAdapter(SQLiteDataReader sqlReader)
             {
-                Matrix matrix = new Matrix();
+                MatrixDYNAMIC matrix = new MatrixDYNAMIC();
                 string[] valueTitle = new string[sqlReader.FieldCount - 1];
                 for (int j = 0; j < sqlReader.FieldCount - 1; j++)
                 {
                     valueTitle[j] = sqlReader.GetName(j + 1).ToString();
                 }
-                matrix.Add(valueTitle);
-                //sqlReader.Read();
+
                 while (sqlReader.Read())
                 {
                     string?[] valueField = new string[sqlReader.FieldCount - 1];
                     StringBuilder displayLine = new StringBuilder();
-
+                    var lineResult = new Dictionary<string, object>();
                     for (int j = 0; j < sqlReader.FieldCount - 1; j++)
                     {
                         if (sqlReader.IsDBNull(j + 1))
                         {
-                            valueField[j] = "";
+                            lineResult[valueTitle[j]] = null;
                         }
                         else
                         {
-                            valueField[j] = sqlReader.GetValue(j + 1).ToString();
+                            lineResult[valueTitle[j]] = sqlReader.GetValue(j + 1);
                         }
                     }
-                    matrix.Add(valueField);
+                    matrix.Add(lineResult);
                 }
                 return matrix;
             }
