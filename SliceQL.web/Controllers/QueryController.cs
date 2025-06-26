@@ -1,4 +1,6 @@
 ﻿using System.Text;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
 using SliceQL.Core;
 using SliceQL.web.Models;
@@ -8,24 +10,51 @@ namespace SliceQL.web.Controllers
     public class QueryController : Controller
     {
         [HttpGet]
-        public IActionResult Index() => View(new QueryInputViewModel());
+        public IActionResult Index()
+        {
+            return View(new QueryInputViewModel());
+        }
 
         [HttpPost]
         public async Task<IActionResult> Index(QueryInputViewModel model)
         {
-            if (model.CsvFile == null || string.IsNullOrWhiteSpace(model.SqlQuery))
+            if (model.CsvFiles == null || model.CsvFiles.Count == 0 || string.IsNullOrWhiteSpace(model.SqlQuery))
             {
-                ModelState.AddModelError("", "Fichier CSV et requête SQL requis.");
+                ModelState.AddModelError("", "Please provide at least one CSV file and an SQL query.");
                 return View(model);
             }
 
-            using var reader = new StreamReader(model.CsvFile.OpenReadStream(), Encoding.UTF8);
-            var db = new DatabaseLIB(reader, "MyTable");
+            try
+            {
+                var csvStreams = new Dictionary<StreamReader, string>();
 
-            var result = db.ExecuteSqlQuery(model.SqlQuery);
-            model.Result = result;
-            model.Columns = result.Count > 0 ? result[0].Keys.ToList() : new List<string>();
+                foreach (var csvFile in model.CsvFiles)
+                {
+                    var stream = csvFile.OpenReadStream();
+                    var reader = new StreamReader(stream, Encoding.UTF8, detectEncodingFromByteOrderMarks: true, leaveOpen: false);
+                    string tableName = Path.GetFileNameWithoutExtension(csvFile.FileName).Replace(" ", "_");
+                    csvStreams.Add(reader, tableName);
+                }
+                using var db = new DatabaseMULTI(csvStreams);
 
+                var query = new Query(model.SqlQuery);
+
+                var result = db.ExecuteSqlQuery(query);
+
+                if (result.Count > 0)
+                    model.Columns = result.First().Keys.ToList();
+
+                model.Result = result;
+
+                foreach (var reader in csvStreams.Keys)
+                {
+                    reader.Dispose();
+                }
+            }
+            catch (System.Exception ex)
+            {
+                ModelState.AddModelError("", "Erreur : " + ex.Message);
+            }
             return View(model);
         }
     }

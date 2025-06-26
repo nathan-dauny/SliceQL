@@ -2,9 +2,10 @@
 {
     public class QueryInputViewModel
     {
-        public IFormFile CsvFile { get; set; }
+        public List<IFormFile> CsvFiles { get; set; }
         public string SqlQuery { get; set; }
-        public List<Dictionary<string, object>> Result { get; set; }
-        public List<string> Columns { get; set; }
+
+        public List<string> Columns { get; set; } = new();
+        public List<Dictionary<string, object>> Result { get; set; } = new();
     }
 }

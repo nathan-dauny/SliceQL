@@ -5,12 +5,13 @@ using System.Reflection.PortableExecutable;
 using System.Text;
 using CsvHelper;
 using CsvToDynamicObjectLib;
+using static System.Runtime.InteropServices.JavaScript.JSType;
 using Matrix = System.Collections.Generic.List<string?[]>;
 using MatrixDYNAMIC = System.Collections.Generic.List<System.Collections.Generic.Dictionary<string, object>>;
 
 namespace SliceQL.Core
 {
-    public class DatabaseLIB : IDisposable
+    public class DatabaseMULTI : IDisposable
     {
         /// <summary>
         /// String to define the database.
@@ -31,20 +32,24 @@ namespace SliceQL.Core
         /// Write the Query to create the table and the queries to insert data
         /// <param name="data">Data in the file</param>
         /// /// <param name="tableName">name of the table provided from the name of the File input</param>
-        public DatabaseLIB(StreamReader data, string tableName)
+        public DatabaseMULTI(Dictionary<StreamReader,string> CsvInputs)
         {
             connection = new SQLiteConnection(BDD_CONNECTION_STRING);
             connection.Open();
-            (CsvFinalObject CSV, Dictionary<string, Type> dicoType) = ReturnObject.GetObjectsCSV(data);
-            IEnumerable<SQLiteCommand> queriesToExecute = BuildCommandQuery(CSV, dicoType, tableName);
-            foreach (SQLiteCommand command in queriesToExecute)
+            foreach(var kvp in CsvInputs)
             {
-                command.Connection = connection;
-                using (command)
+                (CsvFinalObject csvObject, Dictionary<string, Type> dicoType) = ReturnObject.GetObjectsCSV(kvp.Key);
+                IEnumerable<SQLiteCommand> queriesToSetupDatabase = BuildCommandQuery(csvObject, dicoType, kvp.Value);
+                foreach (SQLiteCommand command in queriesToSetupDatabase)
                 {
-                    command.ExecuteNonQuery();
+                    command.Connection = connection;
+                    using (command)
+                    {
+                        command.ExecuteNonQuery();
+                    }
                 }
             }
+            
         }
         /// <summary>
         /// Call the dispose method of SQLite connection to release the resource. 
@@ -137,7 +142,7 @@ namespace SliceQL.Core
                     var lineResult = new Dictionary<string, object>();
                     for (int j = 0; j < sqlReader.FieldCount; j++)
                     {
-                        if (sqlReader.IsDBNull(j + 1))
+                        if (sqlReader.IsDBNull(j))
                         {
                             lineResult[valueTitle[j]] = null;
                         }
