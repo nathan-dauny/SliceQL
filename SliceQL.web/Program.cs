@@ -1,30 +1,42 @@
 ﻿var builder = WebApplication.CreateBuilder(args);
 
-// Ajout des services MVC
+// Add MVC
 builder.Services.AddControllersWithViews();
 
 var app = builder.Build();
 
-// 🎯 Port dynamique pour Render uniquement
-if (app.Environment.IsDevelopment())
+// En prod (Render), écoute sur le port 80, sur toutes les IP
+if (!app.Environment.IsDevelopment())
 {
-    // Rien, comportement ASP.NET Core par défaut (localhost + navigateur)
-}
-else
-{
-    var port = Environment.GetEnvironmentVariable("PORT") ?? "5000";
-    app.Urls.Add($"http://0.0.0.0:{port}");
+    app.Urls.Add("http://*:80");
 }
 
-if (!app.Environment.IsDevelopment())
+if (app.Environment.IsDevelopment())
+{
+    // Exception details en dev
+    app.UseDeveloperExceptionPage();
+
+    // Lancement automatique du navigateur local sur http://localhost:5000
+    var psi = new System.Diagnostics.ProcessStartInfo
+    {
+        FileName = "http://localhost:5000",
+        UseShellExecute = true
+    };
+    System.Diagnostics.Process.Start(psi);
+
+    // Config Kestrel pour écouter localement sur 5000
+    app.Urls.Add("http://localhost:5000");
+}
+else
 {
     app.UseExceptionHandler("/Home/Error");
     app.UseHsts();
 }
 
-app.UseHttpsRedirection();
 app.UseStaticFiles();
+
 app.UseRouting();
+
 app.UseAuthorization();
 
 app.MapControllerRoute(
