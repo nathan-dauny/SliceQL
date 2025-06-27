@@ -41,13 +41,3 @@ Built with .NET, it supports both command-line usage and a modern web interface.
 git clone https://github.com/nathan-dauny/SliceQL.git
 cd sliceql
 dotnet run --project SliceQL/SliceQL.Console -- --data-file "SLiceQL\inputs\tableName.txt" -s "SELECT * FROM tableName;"
-
-### 🌐 Web Interface
-
-Access SliceQL through its web interface, hosted on Render:  
-[https://sliceql.onrender.com/](https://sliceql.onrender.com/)
-
-- Upload multiple CSV files  
-- Write and execute SQL queries interactively  
-- View results instantly in your browser
-
