@@ -44,6 +44,7 @@ dotnet run --project SliceQL/SliceQL.Console -- --data-file "SLiceQL\inputs\tabl
 
 ### 🌐 Web Interface
 
+```bash
 Access SliceQL through its web interface, hosted on Render:  
 [https://sliceql.onrender.com/](https://sliceql.onrender.com/)
 
