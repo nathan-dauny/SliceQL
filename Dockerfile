@@ -5,7 +5,6 @@ ENV NUGET_PACKAGES=/root/.nuget/packages
 WORKDIR /src
 
 # Copier la solution et les projets
-COPY nuget.config ./ # facultatif si tu en as un
 COPY SliceQL.sln ./
 COPY SliceQL.Web/*.csproj SliceQL.Web/
 COPY SliceQL.Core/*.csproj SliceQL.Core/
