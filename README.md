@@ -41,3 +41,10 @@ Built with .NET, it supports both command-line usage and a modern web interface.
 git clone https://github.com/nathan-dauny/SliceQL.git
 cd sliceql
 dotnet run --project SliceQL/SliceQL.Console -- --data-file "SLiceQL\inputs\tableName.txt" -s "SELECT * FROM tableName;"
+
+### 🔧 Command-Line Usage (Prototype)
+
+```bash
+git clone https://github.com/nathan-dauny/SliceQL.git
+cd sliceql
+dotnet run --project SliceQL/SliceQL.Console -- --data-file "SLiceQL\inputs\tableName.txt" -s "SELECT * FROM tableName;"
