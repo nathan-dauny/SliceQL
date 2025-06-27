@@ -1,7 +1,7 @@
 # 🧩 SliceQL
 
-**SliceQL** is a Console App that lets you run SQL-like queries directly on structured text files.  
-Built with .NET, it works both as a command-line tool and soon as a web interface.
+**SliceQL** is a versatile tool that lets you run SQL-like queries directly on multiple Csv files.  
+Built with .NET, it supports both command-line usage and a modern web interface.
 
 > ⚠️ Excel (.xlsx) support coming soon!
 
@@ -9,26 +9,27 @@ Built with .NET, it works both as a command-line tool and soon as a web interfac
 
 ## 🚀 Features
 
-- 📂 Load structured `.txt` files as data sources
-- 🧠 Run basic SQL queries (`SELECT`, `WHERE`, etc.)
-- 💻 Command-line usage
-- 🌐 ASP.NET Core web interface in development
+- 📂 Load structured `.txt` or `.csv` files as data sources  
+- 🧠 Run SQL queries (`SELECT`, `JOIN`, `WHERE`, etc.) on text files as if they were database tables  
+- 💻 Command-line application for advanced users and automation  
+- 🌐 ASP.NET Core MVC web interface for easy, interactive usage — **currently deployed on Render**  
 
 ---
 
 ## 🛠️ Tech Stack
 
-- .NET 8 (C#)
-- Modular architecture using .NET Class Libraries
-- ASP.NET Core MVC for the web interface
-- SQLite query execution
+- .NET 8 (C#)  
+- Modular design with .NET Class Libraries  
+- ASP.NET Core MVC for the web front-end  
+- SQLite for query execution and in-memory relational operations 
 
 ---
 
 ## 📦 Packages Used
 
 - 🧾 System.CommandLine — Modern API for building command-line apps with argument parsing, tab completion, and more  
-- 🗃️ System.Data.SQLite — ADO.NET provider for SQLite databases  
+- 🗃️ System.Data.SQLite — ADO.NET provider for SQLite databases
+- 📊 DynamicCsvParser — Custom library to parse CSV files dynamically and map data types automatically  
 
 ---
 
@@ -41,5 +42,12 @@ git clone https://github.com/nathan-dauny/SliceQL.git
 cd sliceql
 dotnet run --project SliceQL/SliceQL.Console -- --data-file "SLiceQL\inputs\tableName.txt" -s "SELECT * FROM tableName;"
 
-TEST: SliceQL.Console --data-file "C:\Users\anous\Desktop\Applications dev\SLiceQL\inputs\tableName.txt" -s "SELECT * FROM tableName WHERE FamilyName='Bertrand';"
+### 🌐 Web Interface
+
+Access SliceQL through its web interface, hosted on Render:  
+[https://sliceql.onrender.com/](https://sliceql.onrender.com/)
+
+- Upload multiple CSV files  
+- Write and execute SQL queries interactively  
+- View results instantly in your browser
 
