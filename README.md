@@ -28,19 +28,21 @@ Built with .NET, it supports both command-line usage and a modern web interface.
 ## 📦 Packages Used
 
 - 🧾 System.CommandLine — Modern API for building command-line apps with argument parsing, tab completion, and more  
-- 🗃️ System.Data.SQLite — ADO.NET provider for SQLite databases
-- 📊 DynamicCsvParser — Custom library to parse CSV files dynamically and map data types automatically  
+- 🗃️ System.Data.SQLite — ADO.NET provider for SQLite databases  
+- 📊 [DynamicCsvParser](https://github.com/nathan-dauny/CsvToDynamicObject) — Custom library to parse CSV files dynamically and map data types automatically  
 
 ---
 
 ## ⚙️ Getting Started
 
-### 🔧 Command-Line Usage (Prototype)
+### 🌐 Web Interface
 
-```bash
-git clone https://github.com/nathan-dauny/SliceQL.git
-cd sliceql
-dotnet run --project SliceQL/SliceQL.Console -- --data-file "SLiceQL\inputs\tableName.txt" -s "SELECT * FROM tableName;"
+Access SliceQL through its web interface, hosted on Render:  
+[https://sliceql.onrender.com/](https://sliceql.onrender.com/)
+
+- Upload multiple CSV files  
+- Write and execute SQL queries interactively  
+- View results instantly in your browser
 
 ### 🔧 Command-Line Usage (Prototype)
 
